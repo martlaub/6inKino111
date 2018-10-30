@@ -7,7 +7,7 @@ void main() {
     test('parsing test', () {
       List<Show> deserialized = ShowParser.parse(showsXml);
       expect(deserialized.length, 3);
-
+      non valid syntax
       var jumanji = deserialized.first;
       expect(jumanji.id, '1155306');
       expect(jumanji.eventId, '302419');
@@ -18,7 +18,7 @@ void main() {
       expect(jumanji.theaterAndAuditorium, 'Tennispalatsi, Helsinki, sali 6');
       expect(jumanji.start, new DateTime(2018, 02, 21, 10, 30));
       expect(jumanji.end, new DateTime(2018, 02, 21, 12, 39));
-    }, skip: "Skip this test");
+    });
   });
 }
 
