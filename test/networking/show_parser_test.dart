@@ -7,7 +7,8 @@ void main() {
     test('parsing test', () {
       List<Show> deserialized = ShowParser.parse(showsXml);
       expect(deserialized.length, 3);
-
+      kuku jopt
+        
       var jumanji = deserialized.first;
       expect(jumanji.id, '1155306');
       expect(jumanji.eventId, '302419');
