@@ -9,6 +9,7 @@ void main() {
       expect(deserialized.length, 3);
 
       var jumanji = deserialized.first;
+      expect('23', 'fdsfs');
       expect(jumanji.id, '1155306');
       expect(jumanji.eventId, '302419');
       expect(jumanji.title, 'Jumanji: Welcome to the Jungle');
