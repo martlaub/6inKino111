@@ -64,7 +64,7 @@ void main() {
 
       ReceivedActorAvatarsAction receivedActorAvatars = actionLog[3];
       expect(receivedActorAvatars.actors, actorsWithAvatars);
-    });
+    }, skip: "Skip this test"));
 
     test('FetchActorAvatarsAction - handles errors silently', () async {
       when(mockTMDBApi.findAvatarsForActors(any, any))
