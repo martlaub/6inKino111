@@ -1,45 +1,360 @@
-# Automatically generated on 2020-03-19 UTC from http://localhost:3000/app/5e7351e943c67813b914c7d0/settings
-# Note that this configuration is not an exact match to UI settings. Review and adjust as necessary.
+# For app store connect publishing you need to fill APP_STORE_CONNECT_APP_SPECIFIC_PASSWORD  (see https://support.apple.com/en-us/HT204397)
+# For slack notifications you need to first connect Slack (see https://docs.codemagic.io/publishing-yaml/distribution/#slack)
+#
+# Your apple certificates (CM_CERTIFICATE) is exported with empty password. If you change it to a certificate with password, you will need to add an env var CM_CERTIFICATE_PASSWORD
+# and include it to the command as `keychain add-certificates --certificate /tmp/certificate.p12 --certificate-password $CM_CERTIFICATE_PASSWORD`
 
 workflows:
-  default-workflow:
-    name: Default Workflow
+  test-pr:
+    name: Test PR
+    instance_type: mac_pro
+    max_build_duration: 120
     environment:
-      flutter: stable
-      xcode: latest
-      cocoapods: default
+      vars:
+        FCI_CLONE_DEPTH: 1
+        # manual ios publishing
+        CM_CERTIFICATE: Encrypted(Z0FBQUFBQmZ2UmRua0JsTkxVbmNKcERuWDlkM091ckFWa0lUU0SEJKeEJ0MjZRX1FXMzJCQ0J0dV85SFRUbERoRXdXeks0OWFqYWtYN1dLNFJJN3JqNFdfaFQ5OGxUWDh2cXRVZDYyazB4Mk5sVzVpNl9zM2gwUDhSZm5vNFh3anp2ZEt6dlZaVWZCcG9MLVhyMHVaa2tVSzNTSXNrcmxack1WaFlEaHhMZ2VpbVF4bnVfV01DZkZEZFhSUXRBN0Q3bVloS25Xc0tHeThNYWZ3Y2k4SFVSdGpjbXAxd3lDb1d2US1nUHhtNVdUSHh4bHI0X0E3UlJnSjJJNWpYTllaOV9Nc1pzdmNZMVhPbk1XbHpleXg4dVFGaU9mRGtYbE5ZUHZqTW84VVRTTkdpRGpOMUk3cmVnNlcxZ3M4Y18weFFVSmEyaWxWbHQyNkstQXRFUGRYQkp5STN3NnhKZkl4VmNJdmdSQmZkUXZfR1VIbjB3RXNNaUY1UnpDRE9YR0d4c3ZVdnN0QnpBa2VfZ3JrQzl1NTVzcGk2eVR1S0dJOWh4cXpNT1ZnMlE0WVBrUURJdE15NWlYM1J1ZnJaSGg3aXptZUZRQWNTbFhRSXItdkZaRjhsek5MWXJ0TXd6ZFpMaDZ5cUQyTGZMcHp1OG1wZnloaDJvZy1icW1wWXVYdF9lSll4SnZjcVllUk85MkVDZkFGVm1ZVkJFOWxSV0NhNGJHbHlUZks0U050R0dycnJOOVI4bzNSamo0dWw3NGljVVRteVFsdGdjMjNKYlkzR1I2Q0QyaGp2MnNQNXhUOHV0eDlxYVNCQVJ4NktLYmhwWVZNYTlwODVjbWRTV1BFYmhoUlFrT3I2c0E3NnZiUWJVb190WlhWZklUWThLalBLbDhjZWFjTG1ORGZTS0RTZFlpS19aOHdFOTR4b2E0X3ZmbUN4N1dWdEVmQzlUaVU1cklBemxNQnNVSnc2NmpmVkQ3dldfR016dHk5ZTU4Ui1kYVVWOG0yeHFWV3E4SzVaZ0JQcUpsOU85VG9RQ0xHdDN3Q3VGaTl6dHd5V0J3VEtWbTJVWk41SGVYVzZVN0tZNHhzVmY1N2hZdUtldmRMSG12c25nOXN4M3hsRDVyOVFJSXpBREZ4UER6WVNzVTI2cTFyQVRVejFidWhmUVdhT2xPSlA2TkNSV1FDSXE1Q1FjTVlVcHBtWk5XTGQ4cjE3WHNpSS1GVThKSjVDTy1DRVBSUDQyYTRfYnhERi1pM1F1cF9scHVuRV9EQ0VUbHdUSmoyRUoyY3RaQm81dnlzWDEzcG5jT3dvblZaVkxCMmc5d285V1M1ZlpseHNCOExiUUpLWHRJVnp4QVBWTmJueGVWcE5qT1RvWFB0dXRiTUhBOEt6YnRYdUEtcERsQWZRTnhrVFJlWWx0NFNfV1BSbGJ4ZUNVU24ydDA5UTVEMWtLdE9NSnhHWlUyZ2IyUXFJS0VRRGl2OWRSUjg3bGlFVnFwUTlFMkduMEdDazlVcmpzVVZ0TXU2ejcwZGl2b01MaUFUX0tpdmxvTDluZDlpejEtY1NsLXFEdUMzN296cUl5VHJnYjhiamJPdVMtWkR1SGhSbldEMEkxMDlvQkV3UlpkbXhBU09tUUR1ZHo4c3daRjdwVXRlVzZnNS1SZy1udGxDN3ZicVJzdFhwQ0RwQWdOYUphejdwdFhKUk9OSFhDb21BcWJjZThTRTdTSld3blNyd19KVEsyekRremYtVS1lY0lBZnVyY1pBUXhVX29iSkhhV21kN2toQzhtZlJxd05iUEg2TTFyWjdpVHNKbUhFSFp1TjdKX1pFN29IRnpqV0VwaVZFdmdiRXlJNng0aUdiV1JwRlNRcmZMZmdMaUVBckhlU1l6TXJyODJKSS1RQklER1lTaXZHaGdpYXItMWJXTTIxRF9zdjBJbXdqX1p1UDcyS1lsRlo3ZjB2ODBodlIwaE1zS0tFU2xuVjJKcXEtQm9maUNid2R0d3RoVWQ5NGpGc3RTd3lMeTRCVkNhWkgxNWhPRE0xOTFaVHk3VmUybjNXVHJ3M3hxem9QT3B6V191U0VtZHdCcW15VlBNVm9RdThfdnFXbDQ1eXIwcTQtUmoyS1hUQ3U0em1qNFBwZnBWeFdfVTNKVjZBaGFGN1dwdkpoMk1wX2NqbUpxTy1zMzcycUxSdTZncFJIYkdZMDhvc2N6eUpfRFNVS2NIOHhEdGo3ZDlPMGxYa3VNWU4yWDc0NkpiazQyTER4YkZRWlo3VTF3UXN6Y0xyNW95WWp1SWFrT0VMRExPRnpaWG9GOGJqd3A4LVJXUF9VQjJsd1BnTzFUZTFGNDlGeG9mQmN0d3U1ZFdmYXNuTERCTTJ0cFB5dl9sZVBXd3JQcjl6d2s4VHR0Vkx6ektETXI2REZyQWtrNGlZdkhhX0JVQmVZTUVkZzI5U19WRW5tWmthLWFmQjllVWJnVUR4cjhvLVNCeTVkSkl4NmhsV0VrTzBFaEtZMV9xM3NUdlFkZEV5dS1VUVl1akotZU5lWURVYTJ3VkpfQkFsT2tVWUFoYzdmQUxpNlpiS2o1ZlNIVzNHd3VwSHVVbEZPOEgwc2tNRVl4UXBrX3MxTTF5S1IwTk9EX29SQ0pjYml5LVZDT0JGVDBuT1lWWEUyTGZBRUpwVEpOSll5YlZtdmJVYVp1M2xlOVZvSUZENzJGc3AzRTREV1R6RmFnNWtyR3lLSDRCTUJvRktuMWpuQk5BQm9mZHl2SG9rSjk0alBRbmQ0RGd2TlJPUHBXS195VG5GY3UzMUJNa1lpQUo3LVR4blR3UjJEaDlDTjczcERMcVBKZkFFdjVEaENOWkpaOE5SeE41SGZyTk5pb1F5bzR3aXZTcGdOV0Zhb2dDTzExQWNCSVg3UDZ1SERETEo4bGxLVlRscHJ4RWN3NXBwdlIyN3NTeVVUTkVjakg4STJGWlEyTDhxeDdZakpTWGhsdDJuQ0F6RjZkNUc2enBFVGo5YnlqMDVqdlNYQzJQWnhERHJZamVZdHNMbzlPUGgzTzlGSUZoTEd5dU9EbHROd2laOG52QmZyRHgtbHdEYWExbkc1eEwyUldnMFFJMS1sQm9pcUJNcDRBWGNCc25jeDNQa3hOcjVMR09heldzaEh4SHc1MG8weTJVZU13cDlmN3ZzbE50RGVxVVhHUTVLXzZNa0pxdVJncERrNGw4bWxCdzc2aUNrRGxVMy1TTXd5Y0tOb0N5cHA3dE14YjJuS09WZlZqZl9pY01QTXktUEhtWUpNRlVXdDVrX3NnUUswQmJOWXhETHBWWVJPZ3Zad1JPNVF2YnhsOGhQdmxobDRDalhyTGJWZktyUWg4YWFoYW1QVVAyajVsRDVLUzFXNnlFdllyX29SRGdZcnhUMXJBNG1wVVY5cVYza1BwNmROZVF1V0dlQWRSeTk0UTFiMklBT05ubm9TZDJmNTJHWmVGTlFZMlJLOXJLTHRhRVRrRmFDUGVNRkVrRGZUS0xPVzRDem1YTlNnQ3MwbmNBRmROajI2dUtWVnFfOWhMeUlCazFYS3RqS2dibHNOa3RWT19lbEwzQVlmLXYyMkFncW5YbTN6VW5EZWJQaUdtcmw3T2ZyWGJWSUlMMVdwcDJUVUVuU0o3OVctaTNMX3NyRHhsUGZ4WGszZ3Z6a0tETm9LczdxeFBEMHpBZ3pqTUpLdWNCaXBkVzJnSkxoSmZEX2RlSHJDU0JaOGpuX1REYVoyb09RYk5DMzJ5QlczN0ptRkpWWFVBSGtBLWRMM2dZSW5MSWg4UmVYcXB5TGxnUVdOdmU1cHNGZTBNLXFCQmN3aDV3NjZjX3dtVFNaUW1BaDN4aWxVOXp2RlNiLU5qZXcwaVF4NnFtelM3dTkyQWFTZEVIYU0tcUwySm1ReV9zdC1CalhmM20tdmwxSmFIaW96MDRNUGdTOHlleVNVWlJBQXFEVjFFN25TUmIzS0JoOW91eUxYcXpLcTNCOGNDdW5HSTRUUU91dGMyOGFWbDF6bDZCTFZfeDh0YWpKYmJkUnBnQ1VNZVpLTXpZRW9CSHhIZDNualJGdHo0VXBubG5HbWRuejJkeGRwbUI2NFhWN2FscE1mZzZ2enplemtTWnNTT0ZjNk9FbG5GUDZDa1oxM053aUx1THQzR2pYelF0bl9VNGc4UXlaV3FhVGx3ZE1EcWZ6SFkyZExxbjBxTkNoVWtCbm9VeFE3LUt6WldIcGl6N3VvVWYtNC1BOVA5VWdNSnNfTzBYcF9iZmYyMjJOeEp3N1Fqd3VaMW9Gcy1pQmNwOVRHbjBGMW1FelAyNXdTbWQteDdwV0dub0V2dzV2VTViQzJiVDBPNHd6cTYtQlVtcDVBamN3Ui1ORWt5aDhvX0dsMVFVOHNkem1tdHFwMGI0NmVObWpOekxSclZHam5GeTVsSlBGWWFYeGFzN1luMHBVWFFWT2ZJdVQ1WDBvaVVNc2t2alpwaEZqYVg3dThFUEdoQUo3cHVXREYwaEZLTXBWSW9Ydm1INWZ0bWlKVERwUllpYk5nOUJuSzZGdW1ITTlIbUVrckdPUlZhUVNFOFppQ0VPU2Z3SFFNQ2pRMnlEel8yRlI1ZnVUQlBOOFFHdk5Ld3lzNjhKMUdkR3Vvb21wdUF0ek1kdHBHdUlLYUE5bEF3eURKLTFlOVNmN09HZWxYQURsNzJiekJOOXhtTzJneDdYbFBMaDNYRml1OFZmNHZKWVlBaDRlUDUxUWc0dkpPSGR3RXJ3SjVneWtmM2hGTVhVT3AyOGxPSE9CTnZxekpEeXcwTmF0X0w3MTF4eXpYNnhPR3FkUXdneFZnbFpxcnRVTDlZZVVfZVA4SEFKR2VnNlgzSnNvU2pRZXNaZldUdmJqQ0VBYWVWWHB5eDNtUUYza1NQNmMwWnJ2U0hER2VIVWp5QXlXNmtGQi1lZG5JSk92Zlc3ZE10YUVQTXE5RUZtendSSGFYVzhOVDJFamptNXhzenEwZWs3cmF5R29ZX2N5TzJHNnM0S1JIQ3JjTThMTzl1LWhPYlVWWDdmWE1Ua1ZnLXlncGR2UGVxdVdaa1Q4Yk5sZEZ2VlMycDBVc2pFSWdOQzB3M1RXTW4yVkNaWEZoblVxRHdQa3d3R3NKY2wyU2hKbngtMnlxTktZRm16SWFaVUVwck9WZjBFdzFmRmhtR0stQVNkSTN5aHhrOHQxZWlUSnFROXZva1NRWkE5TGlHM2ZySmVFQVdvc05kTS1sTWRfMkNkWGVYQ3dfZlZDYjRfb0h0Y3QtOWJMcm5kOVo2QWd1OGMwMlktejFpdDhBUEJqN2dNVHVQYlNpa1Zta2lFdENDdVlJQ0VKWWMzVERHZHBkTlc3ZWV0NDB5bThvbDBHLVFzYVB1WElFQ2tNNXZCNDZTZWVSa1VmWlJfRjMwWjJDQ2Joc2MtSGhiVXB4T050SlBJZ0hWX05QZzR0VWc3bDVMT2FSM2VnbmNZc0ZoMDNHekNTQjUzanF6ckt0akI3VnNQd3VsaG5ORlRsaE9TLXF3UXZic0VFb3BPYWVBQVh6YkExLWJHQ1ZqNVFuLXVkSEp6cmRZV0REMmFrNGMtQ0lqdDhPdTB4NjFDRGg5dDdqS3FwUU4wLVBxamh3QmJzQTdMSlBNQnptQjB5dFluUTJQYklFZ184WWdlSUpsNnJuSGFJWnQ5RDFyM3dNTTlnNHF3UGhKeTM2WWQzclg4dWlTUTF0b1lpNW5kZU1NeFVURnNXa1lJSnp3YTIzZC1jUEphdVYtTlRoQmNyVG9URGVTZU1uaS00b2RSNmtoUGwzbXEzUUZ1eGhFd3hSbHB5WHhRNnU1SFhybXVSSHV5bng3NXFsTGFocXRQZkxLZEcwVE4tYjI0b3RGUG1yaE1Xa0JPaEt5UURPbEhZUTlDazkzbVpEbkp3UHdpVS1vb09KT1VnVEU0eUZMbHJ5dUNsMXJxWEpoTTJPbGZTV1dQbTF1TkVJV2FHRFZiUGpJbkRJVlVKNTNSclVISF9ONDU5UWVtZkR2QzM1SWNDRUlRdGlndFNSWGJmMnl0TUQ2a29FVG4wRHhHVVJGZHJKTWgtWENhV0ZoOFdJczFUb2JKTjlqU3pvNGFEYnliRmJfQWowMy1OM3B3NG9kOXNuR3hiYmZNbDl5dEF4THEwR2l6UT09)
+        CM_PROVISIONING_PROFILE: Encrypted(Z0FBQUFBQmZ2UmRua0JsTkxVbmN1ckFWa0lUU01VaGxyaXlrTXhMSEJKeEJ0MjZRX1FXMzJCQ0J0dV85SFRUbERoRXdXeks0OWFqYWtYN1dLNFJJN3JqNFdfaFQ5OGxUWDh2cXRVZDYyazB4Mk5sVzVpNl9zM2gwUDhSZm5vNFh3anp2ZEt6dlZaVWZCcG9MLVhyMHVaa2tVSzNTSXNrcmxack1WaFlEaHhMZ2VpbVF4bnVfV01DZkZEZFhSUXRBN0Q3bVloS25Xc0tHeThNYWZ3Y2k4SFVSdGpjbXAxd3lDb1d2US1nUHhtNVdUSHh4bHI0X0E3UlJnSjJJNWpYTllaOV9Nc1pzdmNZMVhPbk1XbHpleXg4dVFGaU9mRGtYbE5ZUHZqTW84VVRTTkdpRGpOMUk3cmVnNlcxZ3M4Y18weFFVSmEyaWxWbHQyNkstQXRFUGRYQkp5STN3NnhKZkl4VmNJdmdSQmZkUXZfR1VIbjB3RXNNaUY1UnpDRE9YR0d4c3ZVdnN0QnpBa2VfZ3JrQzl1NTVzcGk2eVR1S0dJOWh4cXpNT1ZnMlE0WVBrUURJdE15NWlYM1J1ZnJaSGg3aXptZUZRQWNTbFhRSXItdkZaRjhsek5MWXJ0TXd6ZFpMaDZ5cUQyTGZMcHp1OG1wZnloaDJvZy1icW1wWXVYdF9lSll4SnZjcVllUk85MkVDZkFGVm1ZVkJFOWxSV0NhNGJHbHlUZks0U050R0dycnJOOVI4bzNSamo0dWw3NGljVVRteVFsdGdjMjNKYlkzR1I2Q0QyaGp2MnNQNXhUOHV0eDlxYVNCQVJ4NktLYmhwWVZNYTlwODVjbWRTV1BFYmhoUlFrT3I2c0E3NnZiUWJVb190WlhWZklUWThLalBLbDhjZWFjTG1ORGZTS0RTZFlpS19aOHdFOTR4b2E0X3ZmbUN4N1dWdEVmQzlUaVU1cklBemxNQnNVSnc2NmpmVkQ3dldfR016dHk5ZTU4Ui1kYVVWOG0yeHFWV3E4SzVaZ0JQcUpsOU85VG9RQ0xHdDN3Q3VGaTl6dHd5V0J3VEtWbTJVWk41SGVYVzZVN0tZNHhzVmY1N2hZdUtldmRMSG12c25nOXN4M3hsRDVyOVFJSXpBREZ4UER6WVNzVTI2cTFyQVRVejFidWhmUVdhT2xPSlA2TkNSV1FDSXE1Q1FjTVlVcHBtWk5XTGQ4cjE3WHNpSS1GVThKSjVDTy1DRVBSUDQyYTRfYnhERi1pM1F1cF9scHVuRV9EQ0VUbHdUSmoyRUoyY3RaQm81dnlzWDEzcG5jT3dvblZaVkxCMmc5d285V1M1ZlpseHNCOExiUUpLWHRJVnp4QVBWTmJueGVWcE5qT1RvWFB0dXRiTUhBOEt6YnRYdUEtcERsQWZRTnhrVFJlWWx0NFNfV1BSbGJ4ZUNVU24ydDA5UTVEMWtLdE9NSnhHWlUyZ2IyUXFJS0VRRGl2OWRSUjg3bGlFVnFwUTlFMkduMEdDazlVcmpzVVZ0TXU2ejcwZGl2b01MaUFUX0tpdmxvTDluZDlpejEtY1NsLXFEdUMzN296cUl5VHJnYjhiamJPdVMtWkR1SGhSbldEMEkxMDlvQkV3UlpkbXhBU09tUUR1ZHo4c3daRjdwVXRlVzZnNS1SZy1udGxDN3ZicVJzdFhwQ0RwQWdOYUphejdwdFhKUk9OSFhDb21BcWJjZThTRTdTSld3blNyd19KVEsyekRremYtVS1lY0lBZnVyY1pBUXhVX29iSkhhV21kN2toQzhtZlJxd05iUEg2TTFyWjdpVHNKbUhFSFp1TjdKX1pFN29IRnpqV0VwaVZFdmdiRXlJNng0aUdiV1JwRlNRcmZMZmdMaUVBckhlU1l6TXJyODJKSS1RQklER1lTaXZHaGdpYXItMWJXTTIxRF9zdjBJbXdqX1p1UDcyS1lsRlo3ZjB2ODBodlIwaE1zS0tFU2xuVjJKcXEtQm9maUNid2R0d3RoVWQ5NGpGc3RTd3lMeTRCVkNhWkgxNWhPRE0xOTFaVHk3VmUybjNXVHJ3M3hxem9QT3B6V191U0VtZHdCcW15VlBNVm9RdThfdnFXbDQ1eXIwcTQtUmoyS1hUQ3U0em1qNFBwZnBWeFdfVTNKVjZBaGFGN1dwdkpoMk1wX2NqbUpxTy1zMzcycUxSdTZncFJIYkdZMDhvc2N6eUpfRFNVS2NIOHhEdGo3ZDlPMGxYa3VNWU4yWDc0NkpiazQyTER4YkZRWlo3VTF3UXN6Y0xyNW95WWp1SWFrT0VMRExPRnpaWG9GOGJqd3A4LVJXUF9VQjJsd1BnTzFUZTFGNDlGeG9mQmN0d3U1ZFdmYXNuTERCTTJ0cFB5dl9sZVBXd3JQcjl6d2s4VHR0Vkx6ektETXI2REZyQWtrNGlZdkhhX0JVQmVZTUVkZzI5U19WRW5tWmthLWFmQjllVWJnVUR4cjhvLVNCeTVkSkl4NmhsV0VrTzBFaEtZMV9xM3NUdlFkZEV5dS1VUVl1akotZU5lWURVYTJ3VkpfQkFsT2tVWUFoYzdmQUxpNlpiS2o1ZlNIVzNHd3VwSHVVbEZPOEgwc2tNRVl4UXBrX3MxTTF5S1IwTk9EX29SQ0pjYml5LVZDT0JGVDBuT1lWWEUyTGZBRUpwVEpOSll5YlZtdmJVYVp1M2xlOVZvSUZENzJGc3AzRTREV1R6RmFnNWtyR3lLSDRCTUJvRktuMWpuQk5BQm9mZHl2SG9rSjk0alBRbmQ0RGd2TlJPUHBXS195VG5GY3UzMUJNa1lpQUo3LVR4blR3UjJEaDlDTjczcERMcVBKZkFFdjVEaENOWkpaOE5SeE41SGZyTk5pb1F5bzR3aXZTcGdOV0Zhb2dDTzExQWNCSVg3UDZ1SERETEo4bGxLVlRscHJ4RWN3NXBwdlIyN3NTeVVUTkVjakg4STJGWlEyTDhxeDdZakpTWGhsdDJuQ0F6RjZkNUc2enBFVGo5YnlqMDVqdlNYQzJQWnhERHJZamVZdHNMbzlPUGgzTzlGSUZoTEd5dU9EbHROd2laOG52QmZyRHgtbHdEYWExbkc1eEwyUldnMFFJMS1sQm9pcUJNcDRBWGNCc25jeDNQa3hOcjVMR09heldzaEh4SHc1MG8weTJVZU13cDlmN3ZzbE50RGVxVVhHUTVLXzZNa0pxdVJncERrNGw4bWxCdzc2aUNrRGxVMy1TTXd5Y0tOb0N5cHA3dE14YjJuS09WZlZqZl9pY01QTXktUEhtWUpNRlVXdDVrX3NnUUswQmJOWXhETHBWWVJPZ3Zad1JPNVF2YnhsOGhQdmxobDRDalhyTGJWZktyUWg4YWFoYW1QVVAyajVsRDVLUzFXNnlFdllyX29SRGdZcnhUMXJBNG1wVVY5cVYza1BwNmROZVF1V0dlQWRSeTk0UTFiMklBT05ubm9TZDJmNTJHWmVGTlFZMlJLOXJLTHRhRVRrRmFDUGVNRkVrRGZUS0xPVzRDem1YTlNnQ3MwbmNBRmROajI2dUtWVnFfOWhMeUlCazFYS3RqS2dibHNOa3RWT19lbEwzQVlmLXYyMkFncW5YbTN6VW5EZWJQaUdtcmw3T2ZyWGJWSUlMMVdwcDJUVUVuU0o3OVctaTNMX3NyRHhsUGZ4WGszZ3Z6a0tETm9LczdxeFBEMHpBZ3pqTUpLdWNCaXBkVzJnSkxoSmZEX2RlSHJDU0JaOGpuX1REYVoyb09RYk5DMzJ5QlczN0ptRkpWWFVBSGtBLWRMM2dZSW5MSWg4UmVYcXB5TGxnUVdOdmU1cHNGZTBNLXFCQmN3aDV3NjZjX3dtVFNaUW1BaDN4aWxVOXp2RlNiLU5qZXcwaVF4NnFtelM3dTkyQWFTZEVIYU0tcUwySm1ReV9zdC1CalhmM20tdmwxSmFIaW96MDRNUGdTOHlleVNVWlJBQXFEVjFFN25TUmIzS0JoOW91eUxYcXpLcTNCOGNDdW5HSTRUUU91dGMyOGFWbDF6bDZCTFZfeDh0YWpKYmJkUnBnQ1VNZVpLTXpZRW9CSHhIZDNualJGdHo0VXBubG5HbWRuejJkeGRwbUI2NFhWN2FscE1mZzZ2enplemtTWnNTT0ZjNk9FbG5GUDZDa1oxM053aUx1THQzR2pYelF0bl9VNGc4UXlaV3FhVGx3ZE1EcWZ6SFkyZExxbjBxTkNoVWtCbm9VeFE3LUt6WldIcGl6N3VvVWYtNC1BOVA5VWdNSnNfTzBYcF9iZmYyMjJOeEp3N1Fqd3VaMW9Gcy1pQmNwOVRHbjBGMW1FelAyNXdTbWQteDdwV0dub0V2dzV2VTViQzJiVDBPNHd6cTYtQlVtcDVBamN3Ui1ORWt5aDhvX0dsMVFVOHNkem1tdHFwMGI0NmVObWpOekxSclZHam5GeTVsSlBGWWFYeGFzN1luMHBVWFFWT2ZJdVQ1WDBvaVVNc2t2alpwaEZqYVg3dThFUEdoQUo3cHVXREYwaEZLTXBWSW9Ydm1INWZ0bWlKVERwUllpYk5nOUJuSzZGdW1ITTlIbUVrckdPUlZhUVNFOFppQ0VPU2Z3SFFNQ2pRMnlEel8yRlI1ZnVUQlBOOFFHdk5Ld3lzNjhKMUdkR3Vvb21wdUF0ek1kdHBHdUlLYUE5bEF3eURKLTFlOVNmN09HZWxYQURsNzJiekJOOXhtTzJneDdYbFBMaDNYRml1OFZmNHZKWVlBaDRlUDUxUWc0dkpPSGR3RXJ3SjVneWtmM2hGTVhVT3AyOGxPSE9CTnZxekpEeXcwTmF0X0w3MTF4eXpYNnhPR3FkUXdneFZnbFpxcnRVTDlZZVVfZVA4SEFKR2VnNlgzSnNvU2pRZXNaZldUdmJqQ0VBYWVWWHB5eDNtUUYza1NQNmMwWnJ2U0hER2VIVWp5QXlXNmtGQi1lZG5JSk92Zlc3ZE10YUVQTXE5RUZtendSSGFYVzhOVDJFamptNXhzenEwZWs3cmF5R29ZX2N5TzJHNnM0S1JIQ3JjTThMTzl1LWhPYlVWWDdmWE1Ua1ZnLXlncGR2UGVxdVdaa1Q4Yk5sZEZ2VlMycDBVc2pFSWdOQzB3M1RXTW4yVkNaWEZoblVxRHdQa3d3R3NKY2wyU2hKbngtMnlxTktZRm16SWFaVUVwck9WZjBFdzFmRmhtR0stQVNkSTN5aHhrOHQxZWlUSnFROXZva1NRWkE5TGlHM2ZySmVFQVdvc05kTS1sTWRfMkNkWGVYQ3dfZlZDYjRfb0h0Y3QtOWJMcm5kOVo2QWd1OGMwMlktejFpdDhBUEJqN2dNVHVQYlNpa1Zta2lFdENDdVlJQ0VKWWMzVERHZHBkTlc3ZWV0NDB5bThvbDBHLVFzYVB1WElFQ2tNNXZCNDZTZWVSa1VmWlJfRjMwWjJDQ2Joc2MtSGhiVXB4T050SlBJZ0hWX05QZzR0VWc3bDVMT2FSM2VnbmNZc0ZoMDNHekNTQjUzanF6ckt0akI3VnNQd3VsaG5ORlRsaE9TLXF3UXZic0VFb3BPYWVBQVh6YkExLWJHQ1ZqNVFuLXVkSEp6cmRZV0REMmFrNGMtQ0lqdDhPdTB4NjFDRGg5dDdqS3FwUU4wLVBxamh3QmJzQTdMSlBNQnptQjB5dFluUTJQYklFZ184WWdlSUpsNnJuSGFJWnQ5RDFyM3dNTTlnNHF3UGhKeTM2WWQzclg4dWlTUTF0b1lpNW5kZU1NeFVURnNXa1lJSnp3YTIzZC1jUEphdVYtTlRoQmNyVG9URGVTZU1uaS00b2RSNmtoUGwzbXEzUUZ1eGhFd3hSbHB5WHhRNnU1SFhybXVSSHV5bng3NXFsTGFocXRQZkxLZEcwVE4tYjI0b3RGUG1yaE1Xa0JPaEt5UURPbEhZUTlDazkzbVpEbkp3UHdpVS1vb09KT1VnVEU0eUZMbHJ5dUNsMXJxWEpoTTJPbGZTV1dQbTF1TkVJV2FHRFZiUGpJbkRJVlVKNTNSclVISF9ONDU5UWVtZkR2QzM1SWNDRUlRdGlndFNSWGJmMnl0TUQ2a29FVG4wRHhHVVJGZHJKTWgtWENhV0ZoOFdJczFUb2JKTjlqU3pvNGFEYnliRmJfQWowMy1OM3B3NG9kOXNuR3hiYmZNbDl5dEF4THEwR2l6UT09)
+        CM_CERTIFICATE_PASSWORD: blabla
+        # android code signing
+      xcode: 11.4.1
+      node: 12.13.1
+      ndk: r21d
+    cache:
+      cache_paths:
+        - $HOME/.fastlane
+        - $HOME/Carthage/Build/iOS/
+        - $FCI_BUILD_DIR/Carthage/Build/iOS/
+    triggering:
+      events:
+        - push
+        - pull_request
+        - tag
+      branch_patterns:
+        - pattern: 'test/*'
+          include: true
+          source: true
+      cancel_previous_builds: true
     scripts:
-      - flutter emulators --launch apple_ios_simulator
+      - name: Redefine enverinment variables used in scripts after migration from Nevercode
+        script: |
+          mkdir $HOME/xunit_results
+          echo "export NEVERCODE_XUNIT_RESULTS_DIR=$HOME/xunit_results" >> ~/NEVERCODE_ENV_VARS.sh
+          echo "export NEVERCODE=${CONTINUOUS_INTEGRATION}" >> ~/NEVERCODE_ENV_VARS.sh
+          echo "export NEVERCODE_BRANCH=${FCI_BRANCH}" >> ~/NEVERCODE_ENV_VARS.sh
+          echo "export NEVERCODE_BUILD_NUMBER=${BUILD_NUMBER}" >> ~/NEVERCODE_ENV_VARS.sh
       - |
-        # set up debug keystore
-        rm -f ~/.android/debug.keystore
-        keytool -genkeypair \
-          -alias androiddebugkey \
-          -keypass android \
-          -keystore ~/.android/debug.keystore \
-          -storepass android \
-          -dname 'CN=Android Debug,O=Android,C=US' \
-          -keyalg 'RSA' \
-          -keysize 2048 \
-          -validity 10000
-      - |
-        # set up local properties
-        echo "flutter.sdk=$HOME/programs/flutter" > "$FCI_BUILD_DIR/android/local.properties"
-      - flutter packages pub get
-      - flutter analyze
-      - flutter drive --target=test_driver/main.dart
-      - flutter test
-      - flutter build apk --debug
-      - find . -name "Podfile" -execdir pod install \;
-      - flutter build ios --debug --no-codesign
-    artifacts:
-      - build/**/outputs/**/*.apk
-      - build/**/outputs/**/*.aab
-      - build/**/outputs/**/mapping.txt
-      - build/ios/ipa/*.ipa
-      - /tmp/xcodebuild_logs/*.log
-      - flutter_drive.log
+        #!/usr/bin/env python3
+
+        import os
+        import re
+        import subprocess
+        from pathlib import Path
+        from xml.etree import ElementTree
+
+        def get_java_information(data):
+            def get_value_from_flat_plist(key):
+                key_value_iterator = iter(zip(data, data[1:])) # plist contains a value node right after the key node
+                return next(v.text for k, v in key_value_iterator if k.text == key)
+
+            name, version, jvm_name = map(get_value_from_flat_plist, ['JVMPlatformVersion', 'JVMVersion', 'JVMName'])
+            name = re.match(r'(([1-9]+\.?)+)', name).group(1).rstrip('.') # to convert e.g. '15.0' to '15'
+            return '- **{}**: version `{}`, JVM `{}`'.format(name, version, jvm_name)
+
+        output = subprocess.check_output('/usr/libexec/java_home -X', shell=True).decode()
+        xml_output = ElementTree.fromstring(output)[0] # accessing the list of java versions
+        print('\n'.join(map(get_java_information, xml_output)))
+
+        def get_avdmanager_path():
+            version = 'latest'
+            with open(f'{cmdline_tools_path}/{version}/source.properties') as f:
+                properties = f.read()
+            revision = next(p for p in properties.splitlines() if 'Pkg.Revision' in p)
+            if 'beta' in revision:
+                cmdtool_versions = sorted(os.listdir(cmdline_tools_path), reverse=True)
+                version = next(v for v in cmdtool_versions if 'latest' not in v and 'beta' not in v)
+            version_path = Path(cmdline_tools_path) / version
+            return str(next(version_path.rglob('avdmanager'))) # path is different across versions
+
+        def get_device_information(device):
+          device_lines = device.replace('Tag/ABI','\nTag/API').splitlines()
+          device_info = dict(line.strip().split(': ') for line in device_lines)
+          return '\n'.join([
+              f'- **{device_info.pop("Name")}**\n',
+              *(f'    - {name}: `{value}`' for name, value in device_info.items())
+          ])
+
+        # latest cmdline-tools on Xcoce 12.5+ machine (4.0-beta01) doesn't output emulators.
+        # Use the highest not beta version available
+        cmdline_tools_path = os.path.expandvars('$ANDROID_HOME/cmdline-tools')
+        raw_output = subprocess.check_output(f'{get_avdmanager_path()} list avd', shell=True).decode()
+        output = '\n'.join(raw_output.splitlines()[1:]) # remove the first info line from the output
+        print('\n\n'.join(map(get_device_information, output.split('---------\n'))))
+      - name: Pre-build script
+        script: |
+          export NEVERCODE_BRANCH=$FCI_BRANCH
+          chmod +x NC_PRE_BUILD_SCRIPT.sh && ./NC_PRE_BUILD_SCRIPT.sh
+    # prepare repo
+      - name: Install dependencies
+        script: |
+          yarn install --non-interactive
+          cd ios
+          gem install bundler
+          bundle install --path "$HOME/vendor/bundle"
+          bundle update
+          bundle exec pod repo update
+          bundle exec pod install
+      - name: Ionic
+        script: |
+          ionic cordova platform remove android --nosave
+          ionic cordova platform add android --confirm --no-interactive --noresources
+          ionic cordova platform remove ios --nosave
+          ionic cordova platform add ios --confirm --no-interactive --noresources
+          ionic cordova build android --release --no-interactive --prod --device
+############################################# build ios
+      - name: Set up keychain to be used for codesigning using Codemagic CLI 'keychain' command
+        script: keychain initialize
+      - name: Set up Provisioning profiles from environment variables
+        script: |
+          PROFILES_HOME="$HOME/Library/MobileDevice/Provisioning Profiles"
+          mkdir -p "$PROFILES_HOME"
+          PROFILE_PATH="$(mktemp "$PROFILES_HOME"/$(uuidgen).mobileprovision)"
+          echo ${CM_PROVISIONING_PROFILE} | base64 --decode > $PROFILE_PATH
+          echo "Saved provisioning profile $PROFILE_PATH"
+      - name: Set up signing certificate
+        script: |
+          echo $CM_CERTIFICATE | base64 --decode > /tmp/certificate.p12
+          keychain add-certificates --certificate /tmp/certificate.p12
+      - name: Set up code signing settings on Xcode project
+        script: xcode-project use-profiles
+      - name: Set up iOS codesigning
+        script: |
+          set -e
+          keychain initialize
+          PROFILES_HOME="$HOME/Library/MobileDevice/Provisioning Profiles"
+          mkdir -p "$PROFILES_HOME"
+          PROFILE_PATH="$(mktemp "$PROFILES_HOME"/$(uuidgen).mobileprovision)"
+          echo ${CM_PROVISIONING_PROFILE} | base64 --decode > $PROFILE_PATH
+          echo "\nSaved provisioning profile $PROFILE_PATH\n"
+          echo $CM_CERTIFICATE | base64 --decode > /tmp/certificate.p12
+          keychain add-certificates --certificate /tmp/certificate.p12
+          xcode-project use-profiles
+      - name: Build ipa
+        script: |
+          export NEVERCODE_BUILD_NUMBER=$(($BUILD_NUMBER + 1068))
+          xcode-project build-ipa \
+            --workspace Avios/BAExec.xcworkspace \
+            --scheme Test \
+            --config Test
+    # test ios
+      - name: Test
+        script: |
+          set -o pipefail
+          xcodebuild \
+            -workspace Avios/BAExec.xcworkspace \
+            -scheme Test \
+            -config Test \
+            -sdk iphonesimulator \
+            -enableCodeCoverage YES \
+            -destination 'platform=iOS Simulator,name=iPhone 11 Pro Max,OS=13.4' \
+            test | xcpretty 2>&1 | tee "/tmp/xcodebuild_logs/xcodetest.log"
+############################### build android
+      - name: Set up local properties
+        script: echo "sdk.dir=$HOME/programs/android-sdk-macosx" > "$FCI_BUILD_DIR/local.properties"
+      - name: Install gradle wrapper
+        script: |
+          GRADLE=$(find $HOME/programs/gradle-*/bin -name gradle | sort -r | head -1)
+          GRADLE_URL=$(cat gradle/wrapper/gradle-wrapper.properties | grep -w distributionUrl | cut -d= -f2 | sed 's@\\@@g')
+          $GRADLE wrapper --gradle-distribution-url $GRADLE_URL
+          ./gradlew --version
+      - name: Build aab
+        script: ./gradlew -b app/build.gradle.kts bundleToyotaSwitchableDebug
+      - name: Sign aab and generate universal APK
+        script: |
+          CM_KEYSTORE_PATH='/tmp/keystore.keystore'
+          echo $CM_KEYSTORE | base64 --decode > $CM_KEYSTORE_PATH
+          AAB_PATH=$(find app/build/outputs/bundle -name "*.aab" | head -1)
+          jarsigner \
+            -sigalg SHA1withRSA \
+            -digestalg SHA1 \
+            -keystore $CM_KEYSTORE_PATH \
+            -storepass $CM_KEYSTORE_PASSWORD \
+            -keypass $CM_KEY_ALIAS_PASSWORD \
+            $AAB_PATH $CM_KEY_ALIAS_USERNAME
+          android-app-bundle build-universal-apk \
+            --bundle $AAB_PATH \
+            --ks $CM_KEYSTORE_PATH \
+            --ks-pass $CM_KEYSTORE_PASSWORD \
+            --ks-key-alias $CM_KEY_ALIAS_USERNAME \
+            --key-pass $CM_KEY_ALIAS_PASSWORD
+            name: Sign APK
+      - name: Sign apk
+        script: |
+          set -e
+          UNSIGNED_APK_PATH=$(find app/build/outputs -name "*.apk" | head -1)
+          SIGNED_APK_PATH=$(echo $UNSIGNED_APK_PATH | sed 's/-unsigned//')
+          apksigner sign \
+            --ks $KEYSTORE_PATH \
+            --ks-pass pass:$KEYSTORE_PASSWORD \
+            --ks-key-alias $KEY_ALIAS \
+            --key-pass pass:$KEY_PASSWORD \
+            --in $UNSIGNED_APK_PATH \
+            --out $SIGNED_APK_PATH
+          rm $UNSIGNED_APK_PATH
+      - name: Launch emulator
+        script: |
+          cd $ANDROID_HOME/tools
+          emulator -avd emulator &
+          adb wait-for-device
+      - name: Test Android
+        script: |
+          set -e
+          ./gradlew connectedAndroidTest
+          adb logcat -d > emulator.log
+      # android firebase test lab
+      - name: Build APK for tests
+        script: ./gradlew -b app/build.gradle.kts assembleToyotaSwitchableDebugAndroidTest
+      - name: Authorize gcloud service account
+        script: |
+          GCLOUD_SERVICE_CREDENTIALS_PATH=$FCI_BUILD_DIR/google-services-credentials.json
+          echo $GCLOUD_SERVICE_CREDENTIALS | base64 --decode > $GCLOUD_SERVICE_CREDENTIALS_PATH
+          gcloud auth activate-service-account --key-file=$GCLOUD_SERVICE_CREDENTIALS_PATH
+          gcloud config set project ${GCLOUD_PROJECT}
+      - name: Test
+        script: |
+          APP_PATH=$(find app/build/outputs/bundle -name "*.apk" | head -1)
+          TEST_PATH=$(find app/build/outputs/apk/androidTest -name "*.apk" | head -1)
+          gcloud firebase test android run \
+            --app "$APP_PATH" \
+            --test "$TEST_PATH" \
+            --device "model=G8142,version=25" \
+            --timeout "45m" \
+            --type "instrumentation" \
+            --use-orchestrator \
+            --environment-variables "clearPackageData=true,numShards=5,shardIndex=0" \
+            --quiet
+      - name: Execute lane trigger_simulator_reset
+        script: |
+          bundle exec fastlane trigger_simulator_reset
+      - name: Create changelog to publish to slack and email
+        script: |
+          if [[ -z ${FCI_PREVIOUS_COMMIT} ]]
+          then
+            echo "No finished builds found to generate changelog"
+          else
+            echo "$(git-changelog generate --previous-commit $FCI_PREVIOUS_COMMIT)" | tee release_notes.txt
+          fi
+      - name: Publish to App Center
+        script: |
+          echo 'Installing App Center CLI tools'
+          npm install -g appcenter-cli
+          echo "Find build artifacts"
+          IPA_PATH=$(find build/ios/ipa -name "*.ipa" | head -1)
+          echo "Found ipa at $IPA_PATH"
+          if [[ -z $IPA_PATH ]]
+          then
+              echo "No ipas were found, skip publishing to App Center"
+          else
+            if [[ -z $FCI_PREVIOUS_COMMIT ]]
+            then
+              echo "No finished builds found to generate changelog"
+              export RELEASE_NOTES='App submission via Codemagic'
+            else
+              export RELEASE_NOTES=$(git-changelog generate --previous-commit $FCI_PREVIOUS_COMMIT)
+              echo "Release notes generated"
+            fi
+            echo "\n\nPublishing $IPA_PATH to App Center"
+            appcenter distribute release \
+                --group $APP_CENTER_GROUP \
+                --file $IPA_PATH \
+                --release-notes "$RELEASE_NOTES" \
+                --app $APP_CENTER_APP_ID \
+                --token $APP_CENTER_TOKEN \
+                --quiet
+          fi
+      - name: Firebase App Distribution
+        script: |
+          echo "Find build artifacts"
+          APK_PATH=$(find app/build/outputs -name '*.apk' ! -name '*debug*' | head -1)
+          echo "Found apk at $APK_PATH"
+          if [[ -z $APK_PATH ]]
+          then
+              echo "No apk found, skip publishing to Firebase App Distribution"
+          else
+            if [[ -z $FCI_PREVIOUS_COMMIT ]]
+            then
+              echo "No finished builds found to generate changelog"
+              export RELEASE_NOTES='App submission via Codemagic'
+            else
+              export RELEASE_NOTES=$(git-changelog generate --previous-commit $FCI_PREVIOUS_COMMIT)
+              echo "Release notes generated"
+            fi
+            echo "\n\nPublishing $APK_PATH to Firebase App Distribution"
+            firebase appdistribution:distribute $APK_PATH \
+              --app $FIREBASE_APP_ID \
+              --token $FIREBASE_API_TOKEN \
+              --release-notes "$RELEASE_NOTES" \
+              --testers $FIREBASE_TESTER_EMAILS \
+              --groups $FIREBASE_TESTER_GROUPS
+          fi
     publishing:
+      slack:
+        channel: '#'
       email:
         recipients:
-          - martlaub@yahoo.com
+          - a@gmail.com
+        notify:
+          failure: True
+      google_play:
+        credentials: Encrypt(blablabla)
+        track: alpha
+      app_store_connect:
+        apple_id: a@gmail.com
+        password: whatever password
+      scripts:
+        - name: Webhook notification
+          script: |
+            export PROJECT_URL=https://codemagic.io/app/${FCI_PROJECT_ID}
+            export VERSION_CODE=$(grep -o "versionCode\s\+\d\+" app/build.gradle | awk '{ print $2 }')
+            export VERSION_NAME=$(awk '/versionName ".*"/{print $2}' app/build.gradle | tr -d \''"\')
+            payload(){
+              echo '{
+                  "project": {
+                    "name": "Lingvist Android",
+                    "id": "'$FCI_PROJECT_ID'",
+                    "url": "'$PROJECT_URL'"
+                  },
+                  "build": {
+                    "id": "'$FCI_BUILD_ID'",
+                    "branch": "'$FCI_BRANCH'",
+                    "number": "'$BUILD_NUMBER'",
+                    "version_code": "'$VERSION_CODE'",
+                    "version_name": "'$VERSION_NAME'",
+                    "url": "'$PROJECT_URL'/build/'$FCI_BUILD_ID'"
+                  },
+                  "commit": {
+                    "hash": "'$FCI_COMMIT'",
+                    "commit_subject": "'$(git show -s --format=%s)'",
+                    "commit_body": "'$(git show -s --format=%b)'"
+                  },
+                  "artefacts": '$FCI_ARTIFACT_LINKS'
+                }'
+            }
+            curl $WEBHOOK_NOTIFICATION_URL \
+              --header "Content-Type: application/json" \
+              --request POST \
+              --data "$(payload)"
+    artifacts:
+    # ios artifacts
+      - build/ios/ipa/*.ipa
+      - /tmp/xcodebuild_logs/*.log
+      - $HOME/Library/Developer/Xcode/DerivedData/**/Build/**/*.dSYM
+      - $HOME/Library/Developer/Xcode/DerivedData/**/*.embeddedframework
+    # android artifacts
+      - app/build/reports
+      - app/build/test-results
+      - app/build/outputs/logs
+      - app/build/outputs/**/*.apk
+      - app/build/outputs/**/*.aab
+      - app/build/outputs/**/mapping.txt
+      - platforms/android/build/outputs/**/*.apk
